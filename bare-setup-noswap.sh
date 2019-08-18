@@ -32,7 +32,7 @@ CLI=bare-cli
 MONITOR=baremon.sh
 SOURCE='https://github.com/BareCrypto/bare-core/releases/download/v1.1.0.3/BARE_v1.1.0.3_ubuntu16_deamon.tar.gz'
 ARCHIVE=BARE_v1.1.0.3_ubuntu16_deamon.tar.gz
-FOLDER2=qyno-2.0.0/
+#FOLDER2=
 
 #LINES TO MANUALLY CHANGE
 # 44, 
@@ -190,8 +190,8 @@ rm -rf $ARCHIVE
  stop_daemon
  
  # Deploy binaries to /usr/bin
- cd ~/$FOLDER/$FOLDER2/
- sudo rm $NAME2-qt
+ # cd ~/$FOLDER/$FOLDER2/
+ # sudo rm $NAME2-qt
  sudo cp $NAME2* /usr/bin/
  sudo chmod 755 -R ~/$FOLDER
  sudo chmod 755 /usr/bin/$NAME2*
