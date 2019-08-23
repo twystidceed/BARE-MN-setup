@@ -123,6 +123,7 @@ else
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
+sudo apt-get -y install dtrx
 sudo apt-get -y autoremove
 sudo apt-get -y install wget nano htop jq
 sudo apt-get -y install libzmq3-dev
