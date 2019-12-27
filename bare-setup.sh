@@ -450,7 +450,7 @@ ${GREEN}no donations at this time ${NC}
 
 Contact Twystidceed#4126 on discord if you need additional support
 "
-delay 30
+delay 10
 # Run $MONITOR
 sudo $MONITOR
 
