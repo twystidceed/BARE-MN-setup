@@ -344,6 +344,8 @@ maxconnections=10
 externalip=$publicip:$PORT
 masternode=1
 masternodeprivkey=$genkey
+addnode=134.209.163.212:27003
+addnode=107.175.87.133:27003
 EOF
 
 #Finally, starting daemon with new $CONF
