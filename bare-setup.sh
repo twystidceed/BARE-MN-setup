@@ -347,9 +347,8 @@ masternodeprivkey=$genkey
 EOF
 
 #Finally, starting daemon with new $CONF
-delay 30
 $DAEMON -daemon
-delay 5
+delay 10
 
 #Setting auto start cron job daemon
 cronjob="@reboot sleep 30 && $DAEMON -daemon"
