@@ -1,9 +1,8 @@
 #!/bin/bash
-# TourCoin BARE Masternode Setup Script V1.0 for Ubuntu 16.04 LTS
+# Twystid's Masternode Setup Script V3.0 for Ubuntu 16.04 LTS
 #
 # Script will attempt to auto detect primary public IP address
-# and generate masternode private key unless specified in command line
-#
+# This script is capable of installing with or without swap depending on your VPS
 # Usage:
 # bash bare-setup.sh 
 #
@@ -12,30 +11,49 @@
 RED='\033[0;91m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
+PURPLE='\033[1;35m'
 NC='\033[0m' # No Color
 
 #TCP port
 PORT=27003
 RPC=27004
 
-#OTHER VARIABLES
+#GLOBAL VARIABLES - Check the daemon deployment section for proper deployment
+#this is the Github Source for the binaries
+SOURCE='https://github.com/BareCrypto/bare-core/releases/download/v1.1.0.3/BARE_v1.1.0.3_ubuntu16_deamon.tar.gz'
+
+#The archive itself from the source
+ARCHIVE=BARE_v1.1.0.3_ubuntu16_deamon.tar.gz
+
+#name of the folder created with the git clone when clonign the repository
 FOLDER=BARE-MN-setup
+
 #official name
 NAME='Bare'
-#name2 in script such as line 49 & copy binaries to bin
-NAME2=bare
-TICKER=BARE
-HIDDEN=.bare
-CONF=bare.conf
-DAEMON=bared
-CLI=bare-cli
-MONITOR=baremon.sh
-SOURCE='https://github.com/BareCrypto/bare-core/releases/download/v1.1.0.3/BARE_v1.1.0.3_ubuntu16_deamon.tar.gz'
-ARCHIVE=BARE_v1.1.0.3_ubuntu16_deamon.tar.gz
-#FOLDER2=
 
-#LINES TO MANUALLY CHANGE
-# 44, 
+#name2 is the actual name of the binary when installed on VPS [CASE SENSISTIVE]
+NAME2=bare
+
+#Simply the Ticker of the coin for referenceing in the script - no usage case not sensitive
+TICKER=BARE
+
+#actual name of the hidden folder for the coin [CASE SENSITIVE]
+HIDDEN=.bare
+
+#Actual name of the conf file in the hidden folder [CASE SENSITIVE]
+CONF=bare.conf
+
+#actual name od the coin daemon [CASE SENSITIVE]
+DAEMON=bared
+
+#Actual name of the coin daemon -cli [CASE SENSITIVE]
+CLI=bare-cli
+
+#name of the monitor script [CASE SENSITIVE]
+MONITOR=baremon.sh
+
+#only enable if needed due to binaries being extracted to a second folder within the cloned folder
+#FOLDER2=qyno-2.0.0/
 
 #Clear keyboard input buffer
 function clear_stdin { while read -r -t 0; do read -r; done; }
@@ -77,9 +95,28 @@ fi
 genkey=$1
 
 clear
+echo -e "${PURPLE}####### #     # #     #  #####  ####### ### ######  ${NC}"
+echo -e "${PURPLE}   #    #  #  #  #   #  #     #    #     #  #     # ${NC}"
+echo -e "${PURPLE}   #    #  #  #   # #   #          #     #  #     # ${NC}"
+echo -e "${PURPLE}   #    #  #  #    #     #####     #     #  #     # ${NC}"
+echo -e "${PURPLE}   #    #  #  #    #          #    #     #  #     # ${NC}"
+echo -e "${PURPLE}   #    #  #  #    #    #     #    #     #  #     # ${NC}"
+echo -e "${PURPLE}   #     ## ##     #     #####     #    ### ######  ${NC}"
+echo -e
+echo -e "${PURPLE}      #     # ### #     # ### #     #  #####  ${NC}"
+echo -e "${PURPLE}      ##   ##  #  ##    #  #  ##    # #     # ${NC}"
+echo -e "${PURPLE}      # # # #  #  # #   #  #  # #   # #       ${NC}"
+echo -e "${PURPLE}      #  #  #  #  #  #  #  #  #  #  # #  #### ${NC}"
+echo -e "${PURPLE}      #     #  #  #   # #  #  #   # # #     # ${NC}"
+echo -e "${PURPLE}      #     #  #  #    ##  #  #    ## #     # ${NC}"
+echo -e "${PURPLE}      #     # ### #     # ### #     #  #####  ${NC}"
+echo -e
+echo -e "${GREEN}$NAME Masternode Setup Script V3 for Ubuntu 16.04 LTS${NC}"
+echo -e
+echo -e 
+sleep 3
 
-echo -e "${YELLOW}$NAME Masternode Setup Script V1 for Ubuntu 16.04 LTS${NC}"
-echo "Do you want me to generate a masternode private key for you? [y/n]"
+echo -e "${YELLOW}Do you want me to generate a masternode private key for you? [y/n]${NC}"
   read DOSETUP
 if [[ $DOSETUP =~ "n" ]] ; then
           read -e -p "Enter your private key:" genkey;
@@ -123,13 +160,13 @@ else
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
-sudo apt-get -y install dtrx
 sudo apt-get -y autoremove
 sudo apt-get -y install wget nano htop jq
 sudo apt-get -y install libzmq3-dev
 sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 sudo apt-get -y install libevent-dev
-sudo apt-get install unzip
+sudo apt-get install -y unzip
+sudo apt-get install -y dtrx
 sudo apt -y install software-properties-common
 sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get -y update
@@ -181,26 +218,48 @@ echo -ne '[###################] (100%)\n'
 rpcuser=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
-#Create 2GB swap file
-if grep -q "SwapTotal" /proc/meminfo; then
-    echo -e "${GREEN}Skipping disk swap configuration...${NC} \n"
-else
-    echo -e "${YELLOW}Creating 2GB disk swap file. \nThis may take a few minutes!${NC} \a"
-    touch /var/swap.img
-    chmod 600 swap.img
-    dd if=/dev/zero of=/var/swap.img bs=1024k count=2000
-    mkswap /var/swap.img 2> /dev/null
-    swapon /var/swap.img 2> /dev/null
-    if [ $? -eq 0 ]; then
-        echo '/var/swap.img none swap sw 0 0' >> /etc/fstab
-        echo -e "${GREEN}Swap was created successfully!${NC} \n"
-    else
-        echo -e "${RED}Operation not permitted! Optional swap was not created.${NC} \a"
-        rm /var/swap.img
-    fi
-fi
 
- #Extracting Daemon
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e 
+echo -e "${PURPLE}===========Optional SWAP Installation================${NC}"
+echo -e
+echo -e "${RED}Some providers do not allow you to install swap!${NC}"
+echo -e 
+echo -e "${GREEN}If you have VPS with locked swap select N to continue${NC}"
+echo -e "${GREEN}If you need to install SWAP or are unsure select Y${NC}"
+echo -e
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e
+
+
+echo -e "${GREEN}Do you wish to install SWAP Y or N ?${NC} \n"
+ read SWAP
+ 
+	if [[ $SWAP =~ "y" ]] ; then
+			echo "installing SWAP"
+			if grep -q "swapfile" /etc/fstab; then
+				echo -e "${GREEN}Skipping disk swap configuration...${NC} \n"
+			else
+				echo -e "${YELLOW}Creating 2GB disk swap file. \nThis may take a few minutes!${NC} \a"
+				touch /var/swap.img
+				chmod 600 /var/swap.img
+				dd if=/dev/zero of=/var/swap.img bs=1024k count=2000
+				mkswap /var/swap.img 2> /dev/null
+				swapon /var/swap.img 2> /dev/null
+				if [ $? -eq 0 ]; then
+					echo '/var/swap.img none swap sw 0 0' >> /etc/fstab
+					echo -e "${GREEN}Swap was created successfully!${NC} \n"
+				else
+					echo -e "${RED}Operation not permitted! Optional swap was not created.${NC} \a"
+					rm /var/swap.img
+				fi
+			fi
+	fi
+	clear
+
+#Extracting Daemon
 cd ~/$FOLDER
 sudo wget $SOURCE
 sudo dtrx -n -f $ARCHIVE
@@ -210,8 +269,7 @@ rm -rf $ARCHIVE
  stop_daemon
  
  # Deploy binaries to /usr/bin
- #cd ~/$FOLDER/$FOLDER2/
- #sudo rm $NAME2-qt
+ cd ~/$FOLDER/$FOLDER2/
  sudo cp $NAME2* /usr/bin/
  sudo chmod 755 -R ~/$FOLDER
  sudo chmod 755 /usr/bin/$NAME2*
