@@ -1,4 +1,4 @@
-# BARE-MN-setup
+# BARE-MN-setup - 16.04 tested - do not use bare-setup18 yet
  Bare Masternode Setup
 <br>
 <li>sudo apt-get update
