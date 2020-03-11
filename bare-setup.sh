@@ -20,10 +20,10 @@ RPC=27004
 
 #GLOBAL VARIABLES - Check the daemon deployment section for proper deployment
 #this is the Github Source for the binaries
-SOURCE='https://github.com/BareCrypto/bare-core/releases/download/v1.1.0.3/BARE_v1.1.0.3_ubuntu16_deamon.tar.gz'
+SOURCE='https://github.com/BareCrypto/BARE-coin/releases/download/v2.0.0/BARE_v2.0.0_ubuntu16_daemon.tar.xz'
 
 #The archive itself from the source
-ARCHIVE=BARE_v1.1.0.3_ubuntu16_deamon.tar.gz
+ARCHIVE=BARE_v2.0.0_ubuntu16_daemon.tar.xz
 
 #name of the folder created with the git clone when clonign the repository
 FOLDER=BARE-MN-setup
