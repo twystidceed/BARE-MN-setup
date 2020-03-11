@@ -53,7 +53,7 @@ CLI=bare-cli
 MONITOR=baremon.sh
 
 #only enable if needed due to binaries being extracted to a second folder within the cloned folder
-#FOLDER2=qyno-2.0.0/
+#FOLDER2=if needed 
 
 #Clear keyboard input buffer
 function clear_stdin { while read -r -t 0; do read -r; done; }
