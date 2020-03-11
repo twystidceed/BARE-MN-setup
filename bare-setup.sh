@@ -15,8 +15,8 @@ PURPLE='\033[1;35m'
 NC='\033[0m' # No Color
 
 #TCP port
-PORT=27003
-RPC=27004
+PORT=32201
+RPC=32202
 
 #GLOBAL VARIABLES - Check the daemon deployment section for proper deployment
 #this is the Github Source for the binaries
