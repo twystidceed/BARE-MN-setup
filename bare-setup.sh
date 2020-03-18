@@ -226,6 +226,8 @@ echo -e "${NC}"
 } &> /dev/null
 echo -ne '[###################] (100%)\n'
 
+clear
+
 #Generating Random Password for tourd JSON RPC
 rpcuser=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
@@ -239,11 +241,13 @@ echo -e
 echo -e "${RED}Some providers do not allow you to install swap!${NC}"
 echo -e 
 echo -e "${GREEN}If you have VPS with locked swap select N to continue${NC}"
+echo -e
 echo -e "${GREEN}If you need to install SWAP or are unsure select Y${NC}"
 echo -e
 echo -e "${YELLOW}=====================================================${NC}"
 echo -e "${YELLOW}=====================================================${NC}"
 echo -e
+echo -e "Please enter your selection :"
 
  read SWAP
  
@@ -285,6 +289,8 @@ echo -e "${YELLOW}=====================================================${NC}"
 echo -e "${YELLOW}=====================================================${NC}"
 echo -e
  read VERSION
+ 
+ 
  ##install option for ubuntu 18.04 - will exit if 16.04 is detected
 	if [[ $VERSION =~ "1" ]] ; then
 			echo "Installing for 18.04"
@@ -298,12 +304,13 @@ echo -e
 					sudo dtrx -n -f $ARCHIVEA
 					rm -rf $ARCHIVEA
 				else
-				echo -e "${RED}You are not running Ubuntu 18.04, Use install for 16.04 - Installation is cancelled.${NC}"
+				echo -e "${RED}You are not running Ubuntu 18.04, Use option 2 to install for 16.04 - Installation is cancelled.${NC}"
 				exit 1
 
 				fi
 	fi
 	clear
+ ##install option for ubuntu 18.04 - will exit if 18.04 is detected
 	
 	if [[ $VERSION =~ "2" ]] ; then
 				echo "Installing for 16.04"
@@ -317,7 +324,7 @@ echo -e
 						sudo dtrx -n -f $ARCHIVEB
 						rm -rf $ARCHIVEA
 					else
-					echo -e "${RED}You are not running Ubuntu 18.04, Use install for 16.04 - Installation is cancelled.${NC}"
+					echo -e "${RED}You are not running Ubuntu 18.04, Use option 1 to install for 16.04 - Installation is cancelled.${NC}"
 					exit 1
 	
 					fi
