@@ -121,7 +121,8 @@ echo -e "${PURPLE}      #     #  #  #   # #  #  #   # # #     # ${NC}"
 echo -e "${PURPLE}      #     #  #  #    ##  #  #    ## #     # ${NC}"
 echo -e "${PURPLE}      #     # ### #     # ### #     #  #####  ${NC}"
 echo -e
-echo -e "${GREEN}$NAME Masternode Setup Script V3 for Ubuntu 16.04 LTS${NC}"
+echo -e "${GREEN}$NAME Masternode Setup Script V3 for Ubuntu LTS${NC}"
+echo -e "${GREEN}This script contains multipl options - please choose proper selections${NC}"
 echo -e
 echo -e 
 sleep 3
@@ -276,7 +277,8 @@ echo -e "${PURPLE}===========Choose Your Ubuntu Version================${NC}"
 echo -e
 echo -e 
 echo -e "${GREEN}To install for Ubuntu 18.01 select 1 ${NC}"
-echo -e "${GREEN}To install for Ubuntu 18.01 select 2 ${NC}"
+echo -e
+echo -e "${GREEN}To install for Ubuntu 16.01 select 2 ${NC}"
 echo -e
 echo -e "${YELLOW}=====================================================${NC}"
 echo -e "${YELLOW}=====================================================${NC}"
