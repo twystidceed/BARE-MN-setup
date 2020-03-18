@@ -1,5 +1,5 @@
 #!/bin/bash
-# Twystid's Masternode Setup Script V3.0 for Ubuntu 16.04 LTS
+# Twystid's Masternode Setup Script V3.2 for Ubuntu
 #
 # Script will attempt to auto detect primary public IP address
 # This script is capable of installing with or without swap depending on your VPS
@@ -19,11 +19,24 @@ PORT=32201
 RPC=32202
 
 #GLOBAL VARIABLES - Check the daemon deployment section for proper deployment
+
 #this is the Github Source for the binaries
-SOURCE='https://github.com/BareCrypto/BARE-coin/releases/download/v2.0.0.6/BARE_v2.0.0.6_Ubuntu16_daemon.tar.xz'
+
+SOURCEA=https://github.com/BareCrypto/BARE-coin/releases/download/v2.0.0.6/BARE_v2.0.0.6_Ubuntu18_daemon.tar.xz
+#Version for ubuntu 16.04
+SOURCEB='https://github.com/BareCrypto/BARE-coin/releases/download/v2.0.0.6/BARE_v2.0.0.6_Ubuntu16_daemon.tar.xz'
 
 #The archive itself from the source
-ARCHIVE=BARE_v2.0.0.6_Ubuntu16_daemon.tar.xz
+#18.04
+ARCHIVEA=BARE_v2.0.0.6_Ubuntu18_daemon.tar.xz
+#16.04
+ARCHIVEB=BARE_v2.0.0.6_Ubuntu16_daemon.tar.xz
+
+#ADDNODES
+ADDNODEA=51.79.26.4:32201
+ADDNODEB=185.183.98.68:32201
+ADDNODEC=5.45.105.212
+
 
 #name of the folder created with the git clone when clonign the repository
 FOLDER=BARE-MN-setup
@@ -55,6 +68,11 @@ MONITOR=baremon.sh
 #only enable if needed due to binaries being extracted to a second folder within the cloned folder
 #FOLDER2=if needed 
 
+
+#####################################
+#     END OF GLOBAL VARIABLES       #
+#####################################
+
 #Clear keyboard input buffer
 function clear_stdin { while read -r -t 0; do read -r; done; }
 
@@ -80,15 +98,7 @@ function stop_daemon {
     fi
 }
 
-#Function detect_ubuntu
 
- if [[ $(lsb_release -d) == *16.04* ]]; then
-   UBUNTU_VERSION=16
-else
-   echo -e "${RED}You are not running Ubuntu 16.04, Installation is cancelled.${NC}"
-   exit 1
-
-fi
 
 
 #Process command line parameters
@@ -111,10 +121,12 @@ echo -e "${PURPLE}      #     #  #  #   # #  #  #   # # #     # ${NC}"
 echo -e "${PURPLE}      #     #  #  #    ##  #  #    ## #     # ${NC}"
 echo -e "${PURPLE}      #     # ### #     # ### #     #  #####  ${NC}"
 echo -e
-echo -e "${GREEN}$NAME Masternode Setup Script V3 for Ubuntu 16.04 LTS${NC}"
+echo -e "${GREEN}$NAME Masternode Setup Script V3 for Ubuntu LTS${NC}"
+echo -e
+echo -e "${GREEN}This script contains multiple options - please choose proper selections${NC}"
 echo -e
 echo -e 
-sleep 3
+sleep 5
 
 echo -e "${YELLOW}Do you want me to generate a masternode private key for you? [y/n]${NC}"
   read DOSETUP
@@ -177,7 +189,7 @@ sudo service fail2ban restart
 sudo apt-get install -y libdb5.3++-dev libdb++-dev libdb5.3-dev libdb-dev && ldconfig
 sudo apt-get install -y libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5
    fi
-
+sudo apt-get install libboost-all-dev
 #Network Settings
 echo -e "${GREEN}Installing Network Settings...${NC}"
 {
@@ -233,8 +245,6 @@ echo -e "${YELLOW}=====================================================${NC}"
 echo -e "${YELLOW}=====================================================${NC}"
 echo -e
 
-
-echo -e "${GREEN}Do you wish to install SWAP Y or N ?${NC} \n"
  read SWAP
  
 	if [[ $SWAP =~ "y" ]] ; then
@@ -259,11 +269,65 @@ echo -e "${GREEN}Do you wish to install SWAP Y or N ?${NC} \n"
 	fi
 	clear
 
-#Extracting Daemon
-cd ~/$FOLDER
-sudo wget $SOURCE
-sudo dtrx -n -f $ARCHIVE
-rm -rf $ARCHIVE
+####TEST FOR OPTION TO INSTALL FOR UBUNTU 18 OR 16 
+
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e 
+echo -e "${PURPLE}===========Choose Your Ubuntu Version================${NC}"
+echo -e
+echo -e 
+echo -e "${GREEN}To install for Ubuntu 18.04 select 1 ${NC}"
+echo -e
+echo -e "${GREEN}To install for Ubuntu 16.04 select 2 ${NC}"
+echo -e
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e "${YELLOW}=====================================================${NC}"
+echo -e
+ read VERSION
+ ##install option for ubuntu 18.04 - will exit if 16.04 is detected
+	if [[ $VERSION =~ "1" ]] ; then
+			echo "Installing for 18.04"
+			#Function detect_ubuntu
+
+				if [[ $(lsb_release -d) == *18.04* ]]; then
+				UBUNTU_VERSION=18
+					#Extracting Daemon
+					cd ~/$FOLDER
+					sudo wget $SOURCEA
+					sudo dtrx -n -f $ARCHIVEA
+					rm -rf $ARCHIVEA
+				else
+				echo -e "${RED}You are not running Ubuntu 18.04, Use install for 16.04 - Installation is cancelled.${NC}"
+				exit 1
+
+				fi
+	fi
+	clear
+	
+	if [[ $VERSION =~ "2" ]] ; then
+				echo "Installing for 16.04"
+				#Function detect_ubuntu
+	
+					if [[ $(lsb_release -d) == *16.04* ]]; then
+					UBUNTU_VERSION=16
+						#Extracting Daemon
+						cd ~/$FOLDER
+						sudo wget $SOURCEB
+						sudo dtrx -n -f $ARCHIVEB
+						rm -rf $ARCHIVEA
+					else
+					echo -e "${RED}You are not running Ubuntu 18.04, Use install for 16.04 - Installation is cancelled.${NC}"
+					exit 1
+	
+					fi
+	fi
+	clear
+	
+	
+#### END TEST FOR VERSION
+
+
 
  
  stop_daemon
@@ -344,7 +408,9 @@ maxconnections=10
 externalip=$publicip:$PORT
 masternode=1
 masternodeprivkey=$genkey
-addnode=5.45.105.212
+addnode=$ADDNODEA
+addnode=$ADDNODEB
+addnode=$ADDNODEC
 
 EOF
 

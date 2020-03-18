@@ -1,5 +1,6 @@
-# BARE-MN-setup - 16.04 tested - do not use bare-setup18 yet
- Bare Masternode Setup
+# BARE-MN-setup 
+
+ Bare Masternode Setup Script  This will allow install for ubuntu versions 18.04 or 16.04
 <br>
 <li>sudo apt-get update
 <li>sudo apt-get install git
