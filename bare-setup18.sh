@@ -20,10 +20,10 @@ RPC=32202
 
 #GLOBAL VARIABLES - Check the daemon deployment section for proper deployment
 #this is the Github Source for the binaries
-SOURCE='https://github.com/BareCrypto/BARE-coin/releases/download/v2.0.0/BARE_v2.0.0_ubuntu18_daemon.tar.xz'
+SOURCE='https://github.com/BareCrypto/BARE-coin/releases/download/v2.0.0.6/BARE_v2.0.0.6_Ubuntu18_daemon.tar.xz'
 
 #The archive itself from the source
-ARCHIVE=BARE_v2.0.0_ubuntu18_daemon.tar.xz
+ARCHIVE=BARE_v2.0.0.6_Ubuntu18_daemon.tar.xz
 
 #name of the folder created with the git clone when clonign the repository
 FOLDER=BARE-MN-setup
@@ -38,7 +38,7 @@ NAME2=bare
 TICKER=BARE
 
 #actual name of the hidden folder for the coin [CASE SENSITIVE]
-HIDDEN=.bare
+HIDDEN=.barev2
 
 #Actual name of the conf file in the hidden folder [CASE SENSITIVE]
 CONF=bare.conf
