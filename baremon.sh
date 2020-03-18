@@ -1,8 +1,8 @@
 #!/bin/bash
-# baremon 1.0 - BARE Masternode Monitoring 
+# baremon 1.2 - BARE Masternode Monitoring 
 NAME=bare
 SCRIPT=baremon.sh
-HIDDEN=.bare
+HIDDEN=.barev2
 TICKER=BARE
 #Processing command line params
 if [ -z $1 ]; then dly=1; else dly=$1; fi   # Default refresh time is 1 sec
