@@ -122,10 +122,11 @@ echo -e "${PURPLE}      #     #  #  #    ##  #  #    ## #     # ${NC}"
 echo -e "${PURPLE}      #     # ### #     # ### #     #  #####  ${NC}"
 echo -e
 echo -e "${GREEN}$NAME Masternode Setup Script V3 for Ubuntu LTS${NC}"
-echo -e "${GREEN}This script contains multipl options - please choose proper selections${NC}"
+echo -e
+echo -e "${GREEN}This script contains multiple options - please choose proper selections${NC}"
 echo -e
 echo -e 
-sleep 3
+sleep 5
 
 echo -e "${YELLOW}Do you want me to generate a masternode private key for you? [y/n]${NC}"
   read DOSETUP
