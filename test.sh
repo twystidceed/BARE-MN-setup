@@ -188,7 +188,7 @@ sudo service fail2ban restart
 sudo apt-get install -y libdb5.3++-dev libdb++-dev libdb5.3-dev libdb-dev && ldconfig
 sudo apt-get install -y libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5
    fi
-
+sudo apt-get install libboost-all-dev
 #Network Settings
 echo -e "${GREEN}Installing Network Settings...${NC}"
 {
@@ -276,9 +276,9 @@ echo -e
 echo -e "${PURPLE}===========Choose Your Ubuntu Version================${NC}"
 echo -e
 echo -e 
-echo -e "${GREEN}To install for Ubuntu 18.01 select 1 ${NC}"
+echo -e "${GREEN}To install for Ubuntu 18.04 select 1 ${NC}"
 echo -e
-echo -e "${GREEN}To install for Ubuntu 16.01 select 2 ${NC}"
+echo -e "${GREEN}To install for Ubuntu 16.04 select 2 ${NC}"
 echo -e
 echo -e "${YELLOW}=====================================================${NC}"
 echo -e "${YELLOW}=====================================================${NC}"
@@ -312,8 +312,8 @@ echo -e
 					UBUNTU_VERSION=16
 						#Extracting Daemon
 						cd ~/$FOLDER
-						sudo wget $SOURCEA
-						sudo dtrx -n -f $ARCHIVEA
+						sudo wget $SOURCEB
+						sudo dtrx -n -f $ARCHIVEB
 						rm -rf $ARCHIVEA
 					else
 					echo -e "${RED}You are not running Ubuntu 18.04, Use install for 16.04 - Installation is cancelled.${NC}"
