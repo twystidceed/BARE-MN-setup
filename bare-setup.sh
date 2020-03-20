@@ -322,7 +322,7 @@ echo -e
 						cd ~/$FOLDER
 						sudo wget $SOURCEB
 						sudo dtrx -n -f $ARCHIVEB
-						rm -rf $ARCHIVEA
+						rm -rf $ARCHIVEB
 					else
 					echo -e "${RED}You are not running Ubuntu 18.04, Use option 1 to install for 16.04 - Installation is cancelled.${NC}"
 					exit 1
