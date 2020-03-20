@@ -284,7 +284,10 @@ echo -e "${YELLOW}Detect Ubuntu Version${NC}"
 		sudo wget $SOURCEA
 		sudo dtrx -n -f $ARCHIVEA
 		rm -rf $ARCHIVEA
+		clear
+		echo -e
 		echo -e "${GREEN}Installing for Ubuntu Ver 18.04${NC}"
+		echo -e
 	elif [[ $(lsb_release -d) == *16.04* ]]; then
 		UBUNTU_VERSION=16
 			#Extracting Daemon
@@ -292,7 +295,10 @@ echo -e "${YELLOW}Detect Ubuntu Version${NC}"
 			sudo wget $SOURCEB
 			sudo dtrx -n -f $ARCHIVEB
 			rm -rf $ARCHIVEB
+			clear
+			echo -e
 			echo -e "${GREEN}Installing for Ubuntu Ver 16.04${NC}"
+			echo -e
 	else
 	echo -e "${RED}You are not running Ubuntu 18.04 or 16.04 - Installation is cancelled.${NC}"
 	echo -e
