@@ -301,7 +301,6 @@ echo -e "${YELLOW}Detect Ubuntu Version${NC}"
 	exit 1
 
 	fi
-	clear
 	
 #### END TEST FOR VERSION
 
