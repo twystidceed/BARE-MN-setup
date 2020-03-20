@@ -275,62 +275,38 @@ echo -e "Please enter your selection :"
 
 ####TEST FOR OPTION TO INSTALL FOR UBUNTU 18 OR 16 
 
-echo -e "${YELLOW}=====================================================${NC}"
-echo -e "${YELLOW}=====================================================${NC}"
-echo -e 
-echo -e "${PURPLE}===========Choose Your Ubuntu Version================${NC}"
-echo -e
-echo -e 
-echo -e "${GREEN}To install for Ubuntu 18.04 select 1 ${NC}"
-echo -e
-echo -e "${GREEN}To install for Ubuntu 16.04 select 2 ${NC}"
-echo -e
-echo -e "${YELLOW}=====================================================${NC}"
-echo -e "${YELLOW}=====================================================${NC}"
-echo -e
- read VERSION
- 
- 
- ##install option for ubuntu 18.04 - will exit if 16.04 is detected
-	if [[ $VERSION =~ "1" ]] ; then
-			echo "Installing for 18.04"
-			#Function detect_ubuntu
+echo -e "${YELLOW}Detect Ubuntu Version${NC}"
 
-				if [[ $(lsb_release -d) == *18.04* ]]; then
-				UBUNTU_VERSION=18
-					#Extracting Daemon
-					cd ~/$FOLDER
-					sudo wget $SOURCEA
-					sudo dtrx -n -f $ARCHIVEA
-					rm -rf $ARCHIVEA
-				else
-				echo -e "${RED}You are not running Ubuntu 18.04, Use option 2 to install for 16.04 - Installation is cancelled.${NC}"
-				exit 1
+	if [[ $(lsb_release -d) == *18.04* ]]; then
+	UBUNTU_VERSION=18
+		#Extracting Daemon
+		cd ~/$FOLDER
+		sudo wget $SOURCEA
+		sudo dtrx -n -f $ARCHIVEA
+		rm -rf $ARCHIVEA
+		clear
+		echo -e
+		echo -e "${GREEN}Installing for Ubuntu Ver 18.04${NC}"
+		echo -e
+	elif [[ $(lsb_release -d) == *16.04* ]]; then
+		UBUNTU_VERSION=16
+			#Extracting Daemon
+			cd ~/$FOLDER
+			sudo wget $SOURCEB
+			sudo dtrx -n -f $ARCHIVEB
+			rm -rf $ARCHIVEB
+			clear
+			echo -e
+			echo -e "${GREEN}Installing for Ubuntu Ver 16.04${NC}"
+			echo -e
+	else
+	echo -e "${RED}You are not running Ubuntu 18.04 or 16.04 - Installation is cancelled.${NC}"
+	echo -e
+	echo -e "${RED}Please choose a VPS with Ubuntu 16.04 or 18.04 to use this script!${NC}"
+	
+	exit 1
 
-				fi
 	fi
-	clear
- ##install option for ubuntu 18.04 - will exit if 18.04 is detected
-	
-	if [[ $VERSION =~ "2" ]] ; then
-				echo "Installing for 16.04"
-				#Function detect_ubuntu
-	
-					if [[ $(lsb_release -d) == *16.04* ]]; then
-					UBUNTU_VERSION=16
-						#Extracting Daemon
-						cd ~/$FOLDER
-						sudo wget $SOURCEB
-						sudo dtrx -n -f $ARCHIVEB
-						rm -rf $ARCHIVEB
-					else
-					echo -e "${RED}You are not running Ubuntu 18.04, Use option 1 to install for 16.04 - Installation is cancelled.${NC}"
-					exit 1
-	
-					fi
-	fi
-	clear
-	
 	
 #### END TEST FOR VERSION
 
