@@ -33,10 +33,9 @@ ARCHIVEA=BARE_v2.0.0.6_Ubuntu18_daemon.tar.xz
 ARCHIVEB=BARE_v2.0.0.6_Ubuntu16_daemon.tar.xz
 
 #ADDNODES
-ADDNODEA=51.79.26.4:32201
-ADDNODEB=185.183.98.68:32201
-ADDNODEC=5.45.105.212
-
+ADDNODEA=5.45.105.212
+ADDNODEB=185.45.192.24
+ADDNODEC=185.117.72.160
 
 #name of the folder created with the git clone when clonign the repository
 FOLDER=BARE-MN-setup
